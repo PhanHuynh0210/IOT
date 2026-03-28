@@ -12,5 +12,8 @@
 ///
 #include "../src/connect/TaskWifi.h"
 #include "../src/connect/TaskMQTT.h"
+#include "../src/device/TaskDHT20.h"
+#include "../src/device/TaskDHT11.h"
+#include "../src/device/TaskNeoPixel.h"
 
 #endif
