@@ -4,7 +4,8 @@
 void setup()
 {
   Serial.begin(115200);
-  initMQTT();  
+  initMQTT();
+  initDHT20();
 }
 
 void loop()
@@ -14,4 +15,5 @@ void loop()
     return;
   }
   reconnectMQTT();
+
 }
