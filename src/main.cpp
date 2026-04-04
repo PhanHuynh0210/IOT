@@ -4,8 +4,10 @@
 void setup()
 {
   Serial.begin(115200);
-  initMQTT();
-  initDHT20();
+  // xTaskCreate(TaskTemp, "TaskTemp", 4096, NULL, 1, NULL);
+  xTaskCreate(TaskDHT11, "TaskDHT11", 4096, NULL, 1, NULL);
+  xTaskCreate(TaskNeoPixel, "TaskNeoPixel", 2048, NULL, 1, NULL);
+  initMQTT();  
 }
 
 void loop()
@@ -15,5 +17,4 @@ void loop()
     return;
   }
   reconnectMQTT();
-
 }
