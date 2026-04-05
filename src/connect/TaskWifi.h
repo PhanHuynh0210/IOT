@@ -3,6 +3,7 @@
 
 #include "globals.h"
 
-extern bool Wifi_reconnect();
+extern void InitWiFi();
+extern void TaskWiFi(void *pvParameters);
 
 #endif /* INC_TASKWIFI_H_ */
