@@ -8,7 +8,11 @@ SemaphoreHandle_t humLowSem  = nullptr;
 SemaphoreHandle_t humMidSem  = nullptr;
 SemaphoreHandle_t humHighSem = nullptr;
 
+<<<<<<< HEAD
+QueueHandle_t lcdQueue = nullptr;
+=======
 SemaphoreHandle_t CoreIOTSem = xSemaphoreCreateBinary();
 
 QueueHandle_t lcdQueue = nullptr;
 QueueHandle_t coreIOTQueue = nullptr;
+>>>>>>> origin/Huynh

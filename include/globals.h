@@ -12,17 +12,27 @@
 #include <LiquidCrystal_I2C.h>
 #include <Adafruit_NeoPixel.h>
 #include "DHTesp.h"
+<<<<<<< HEAD
+
+///
+#include "../src/connect/TaskWifi.h"
+#include "../src/connect/TaskMQTT.h"
+=======
 #include <ArduinoJson.h>
 
 
 ///
 #include "../src/connect/TaskWifi.h"
+>>>>>>> origin/Huynh
 #include "../src/device/TaskDHT20.h"
 #include "../src/device/TaskDHT11.h"
 #include "../src/device/TaskNeoPixel.h"
 #include "../src/device/TaskBlink.h"
 #include "../src/device/TaskLCD.h"
+<<<<<<< HEAD
+=======
 #include "../src/connect/TaskCOREIOT.h"
+>>>>>>> origin/Huynh
 
 
 extern SemaphoreHandle_t tempLowSem;
@@ -33,11 +43,15 @@ extern SemaphoreHandle_t humLowSem;
 extern SemaphoreHandle_t humMidSem;
 extern SemaphoreHandle_t humHighSem;
 
+<<<<<<< HEAD
+extern QueueHandle_t lcdQueue;
+=======
 extern SemaphoreHandle_t CoreIOTSem;
 
 extern QueueHandle_t lcdQueue;
 extern QueueHandle_t coreIOTQueue;
 
+>>>>>>> origin/Huynh
 
 
 typedef struct{
