@@ -152,8 +152,10 @@ void coreiot_task(void *pvParameters){
 
             client.publish("v1/devices/me/telemetry",buffer,len);
 
-            Serial.print("[CoreIOT] Published: ");
-            Serial.println(buffer);
+
+
+            // Serial.print("[CoreIOT] Published: ");
+            // Serial.println(buffer);
             
         }
     }
