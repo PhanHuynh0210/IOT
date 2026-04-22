@@ -32,6 +32,7 @@ void TaskWiFi(void *pvParameters)
 
                 if (WiFi.status() == WL_CONNECTED)
                 {
+                    WiFi.setSleep(false);
                     Serial.println("[WiFi] Connected");
                     Serial.print("[WiFi] IP: ");
                     Serial.println(WiFi.localIP());

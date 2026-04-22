@@ -19,10 +19,12 @@ void setup()
   mqttUpdateSem = xSemaphoreCreateBinary();
 
   //data
-  lcdQueue = xQueueCreate(1, sizeof(Sensordata));
-  coreIOTQueue = xQueueCreate(1, sizeof(Sensordata));
-  MLTinyQueue = xQueueCreate(1, sizeof(Sensordata));
-  GGSheetQueue = xQueueCreate(1, sizeof(Sensordata));
+  // LCD chỉ cần bản mới nhất -> giữ size 1 + Overwrite ở TaskEspNow.
+  lcdQueue     = xQueueCreate(1,                    sizeof(Sensordata));
+  // Các consumer khác cần đầy đủ dữ liệu từng sensor -> dung lượng tỷ lệ theo MAX_SENSORS.
+  coreIOTQueue = xQueueCreate(MAX_SENSORS * 4,      sizeof(Sensordata));
+  MLTinyQueue  = xQueueCreate(MAX_SENSORS * 4,      sizeof(Sensordata));
+  GGSheetQueue = xQueueCreate(MAX_SENSORS * 4,      sizeof(Sensordata));
 
 
   stateQueue = xQueueCreate(10, sizeof(system_event));
@@ -50,10 +52,11 @@ void setup()
   // xTaskCreate(TaskDHT11,   "TaskDHT11",    4096, NULL, 3, NULL);
   xTaskCreate(TaskGGsheet,   "TaskGGsheet",    20480, NULL, 3, NULL);
 
-  xTaskCreate(TaskDHT20,   "DHT20",    4096, NULL, 3, NULL);
+  // xTaskCreate(TaskDHT20,   "DHT20",    4096, NULL, 3, NULL);
   xTaskCreate(TaskBlink,"TaskBlink", 4096, NULL, 2, NULL);
   xTaskCreate(TaskNeoPixel,"NeoPixel", 4096, NULL, 2, NULL);
-  xTaskCreate(TaskLCD,     "LCD",      4096, NULL, 1, NULL);
+  // xTaskCreate(TaskLCD,     "LCD",      4096, NULL, 1, NULL);
+  xTaskCreate(TaskEspNowRecv,   "TaskEspNow",       4096, NULL, 4, NULL);
   // xTaskCreatePinnedToCore(TaskTinyML,"TinyML Task",10000,NULL,1, NULL,1);
 
 }

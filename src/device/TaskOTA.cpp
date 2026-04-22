@@ -5,7 +5,7 @@ String VersionNew;
 #define OTA_BASE_URL "https://raw.githubusercontent.com/PhanHuynh0210/IOT/gh-pages"
 #define OTA_BIN_NAME "firmware.bin"
 
-#define CURRENT_FIRMWARE_VERSION "v2.1.1" 
+#define CURRENT_FIRMWARE_VERSION "v2.2.1" 
 
 void updateFirmwareVersion()
 {

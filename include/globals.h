@@ -34,6 +34,8 @@
 #include "../src/system/LedStatus.h"
 #include "../src/device/TaskML.h"
 #include "../src/connect/TaskGGsheet.h"
+#include "../src/connect/TaskEspNow.h"
+
 
 
 #include "tensorflow/lite/schema/schema_generated.h"
@@ -71,15 +73,27 @@ extern QueueHandle_t wifiQueue;
 
 
 extern TimerHandle_t bootTimeoutTimer;
- 
+
 
 extern PubSubClient client;
 
 
+#define MAX_SENSORS 8
+
 typedef struct{
-    float temp;
-    float humi;
+    uint8_t  sensorId;   // 1..MAX_SENSORS (0 = unknown / local)
+    float    temp;
+    float    humi;
+    uint32_t uptimeMs;
 } Sensordata;
+
+// Tên device hiển thị trên CoreIoT gateway và trong log.
+// sensorId = 1 -> "dht20-sensor-1", v.v.
+inline const char* sensorName(uint8_t id) {
+    static char buf[24];
+    snprintf(buf, sizeof(buf), "dht20-sensor-%u", (unsigned)id);
+    return buf;
+}
 
 typedef enum {
   STATUS_BOOTING,
@@ -100,7 +114,7 @@ typedef enum {
   EVT_WIFI_OK,
   EVT_WIFI_FAIL,
 
-  
+
   EVT_WIFI_SAVED,
   EVT_BOOT_TIMEOUT,
   EVT_BOOT_BUTTON_LONG,
@@ -114,5 +128,15 @@ typedef enum {
 #define MY_SCL 12
 #define MY_SDA 11
 
+#define ESPNOW_WIFI_CHANNEL 1
+#define ESPNOW_PEER_MAC {0x98, 0xA3, 0x16, 0xC0, 0x1A, 0x48}
+
+typedef struct __attribute__((packed)) {
+  uint32_t magic;     
+  uint8_t  sensorId;   
+  float    temp;       
+  float    humi;       
+  uint32_t uptimeMs;   
+} EspNowDht20Packet;
 
 #endif
